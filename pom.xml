@@ -93,7 +93,6 @@
 					<username>fredo1975</username>
 					<password>github1975</password>
 					<pushReleases>true</pushReleases>
-					<keepBranch>false</keepBranch>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<noTag>true</noTag>
 					<allowUntracked>true</allowUntracked>
