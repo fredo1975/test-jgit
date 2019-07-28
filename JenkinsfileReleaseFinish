@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
+    }
+    environment {
+    	VERSION = readMavenPom().getVersion()
+    	def pom = readMavenPom file: 'pom.xml'
+    	def NVERSION = pom.version.replace("-SNAPSHOT", "")
+    }
+    stages {
+        stage ('Build') {
+		 		steps {
+		 			withMaven(mavenSettingsConfig: '64b2f66f-fa43-4c22-86bc-47645fa2ff4e') {
+            			sh '''
+            				git remote set-branches --add origin master_tmp
+							git fetch
+            				mvn jgitflow:release-finish
+            			'''
+		    		}
+		    	}
+        }
+    }
+}

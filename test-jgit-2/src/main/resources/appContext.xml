@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:seam="http://jboss.com/products/seam/spring-seam"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://jboss.com/products/seam/spring-seam http://jboss.com/products/seam/spring-seam-2.1.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!--
+		========================= RESOURCE DEFINITIONS
+		=========================
+	-->
+	<!--
+		Activates a load-time weaver for the context. Any bean within the
+		context that implements LoadTimeWeaverAware (such as
+		LocalContainerEntityManagerFactoryBean) will receive a reference to
+		the autodetected load-time weaver.
+	-->
+
+	<!--
+		Configurer that replaces ${...} placeholders with values from a
+		properties file
+	-->
+	<context:property-placeholder location="application.properties" />
+	<bean id="debugInterceptor" class="org.springframework.aop.interceptor.DebugInterceptor">
+	</bean>
+
+	<bean id="person" class="org.springframework.aop.framework.ProxyFactoryBean" >
+		<property name="proxyInterfaces">
+			<value>fr.utils.aop.Person</value>
+		</property>
+		<property name="target">
+			<bean class="fr.utils.aop.PersonImpl">
+				<property name="name">
+					<value>${name}</value>
+				</property>
+				<property name="age">
+					<value>37</value>
+				</property>
+			</bean>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>myAdvisor</value>
+				<value>debugInterceptor</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="myAdvisor" class="fr.utils.aop.MyAdvisor">
+		<property name="someProperty">
+			<value>Custom string property value</value>
+		</property>
+	</bean>
+	
+	<!--
+		Activates various annotations to be detected in bean classes: Spring's
+		@Required and @Autowired, as well as JSR 250's @PostConstruct,
+		@PreDestroy and @Resource (if available) and JPA's @PersistenceContext
+		and @PersistenceUnit (if available).
+	-->
+	<context:annotation-config />
+
+
+</beans>
