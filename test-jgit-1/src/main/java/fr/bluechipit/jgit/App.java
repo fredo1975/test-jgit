@@ -1,4 +1,4 @@
-package fr.bluechipt.jgit;
+package fr.bluechipit.jgit;
 
 public class App {
 	
