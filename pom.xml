@@ -94,7 +94,7 @@
 				<configuration>
 					<username>fredo1975</username>
 					<password>github1975</password>
-					<pushReleases>true</pushReleases>
+					<pushReleases>false</pushReleases>
 					<keepBranch>false</keepBranch>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<noTag>true</noTag>
@@ -102,6 +102,9 @@
 					<pullDevelop>true</pullDevelop>
 					<pullMaster>true</pullMaster>
 					<allowSnapshots>true</allowSnapshots>
+					<noDeploy>true</noDeploy>
+					<squash>true</squash>
+					<scmCommentPrefix>[RELEASE] </scmCommentPrefix>
 					<flowInitContext>
 						<masterBranchName>master</masterBranchName>
 						<developBranchName>develop</developBranchName>
