@@ -101,7 +101,6 @@
 					<pullMaster>true</pullMaster>
 					<allowSnapshots>true</allowSnapshots>
 					<noDeploy>true</noDeploy>
-					<squash>false</squash>
 					<scmCommentPrefix>[RELEASE] </scmCommentPrefix>
 					<flowInitContext>
 						<masterBranchName>master</masterBranchName>
