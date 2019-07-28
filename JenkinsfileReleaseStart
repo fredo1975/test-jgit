@@ -17,6 +17,7 @@ pipeline {
         stage ('Build') {
 		 	steps {
 		 		sh '''
+		 			git pull
 		 			mvn jgitflow:release-start
             	'''
 		    }
