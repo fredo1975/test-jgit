@@ -12,6 +12,11 @@
 		<module>test-jgit-1</module>
 		<module>test-jgit-2</module>
 	</modules>
+	<scm>
+		<url>https://github.com/fredo1975/test-jgit</url>
+		<connection>scm:git:https://fredo1975:github1975@github.com/fredo1975/test-jgit.git</connection>
+		<developerConnection>scm:git:https://fredo1975:github1975@github.com/fredo1975/test-jgit.git</developerConnection>
+	</scm>
 	<properties>
 		<junit.version>4.12</junit.version>
 		<junit.jupiter.version>5.1.0</junit.jupiter.version>
