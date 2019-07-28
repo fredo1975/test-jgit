@@ -10,7 +10,7 @@ pipeline {
 		 		sh '''
             		git remote set-branches --add origin master
 					git fetch
-            		mvn jgitflow:release-finish
+            		mvn jgitflow:release-finish -Dmaven.javadoc.skip=true
             	'''
 		    }
         }
