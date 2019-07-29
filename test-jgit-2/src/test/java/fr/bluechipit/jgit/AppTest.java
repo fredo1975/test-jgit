@@ -1,4 +1,4 @@
-package fr.bluechipt.jgit;
+package fr.bluechipit.jgit;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -34,5 +34,7 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+        System.out.println("testApp start");
+    	System.out.println("testApp end");
     }
 }
