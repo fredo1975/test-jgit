@@ -8,9 +8,7 @@ pipeline {
         stage ('Build') {
 		 	steps {
 		 		sh '''
-		 			git remote set-branches --add origin master
-					git fetch
-		 			mvn jgitflow:release-finish
+		 			mvn -X jgitflow:release-finish
             	'''
 		    }
         }

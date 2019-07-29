@@ -3,7 +3,7 @@
 	<groupId>fr.bluechipit.test-jgit</groupId>
 	<artifactId>test-jgit</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>test-jgit</name>
 	<url>http://maven.apache.org</url>
 	<modules>
@@ -100,7 +100,7 @@
 					<pullMaster>true</pullMaster>
 					<allowSnapshots>true</allowSnapshots>
 					<noDeploy>true</noDeploy>
-					<squash>true</squash>
+					<squash>false</squash>
 					<scmCommentPrefix>[RELEASE] </scmCommentPrefix>
 					<flowInitContext>
 						<masterBranchName>master</masterBranchName>
