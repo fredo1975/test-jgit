@@ -27,7 +27,7 @@ pipeline {
 		 	steps {
 		 		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
 			 		sh '''
-			 			mvn -X jgitflow:release-start
+			 			mvn -X jgitflow:release-start developmentVersion=${DEV_VERSION}
 	            	'''
             	}
 		    }
