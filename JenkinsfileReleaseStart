@@ -18,6 +18,7 @@ pipeline {
                     echo "VERSION = ${VERSION}"
                     echo "pom = ${pom}"
                     echo "NVERSION = ${NVERSION}"
+                    echo "NVERSION = ${DEV_VERSION}"
                 '''
             }
         }
