@@ -4,12 +4,30 @@ pipeline {
         maven 'Maven 3.3.9'
         jdk 'jdk8'
     }
+    environment {
+    	VERSION = readMavenPom().getVersion()
+    	def pom = readMavenPom file: 'pom.xml'
+    	def NVERSION = pom.version.replace("-SNAPSHOT", "")
+    }
     stages {
+    	stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                    echo "VERSION = ${VERSION}"
+                    echo "pom = ${pom}"
+                    echo "NVERSION = ${NVERSION}"
+                '''
+            }
+        }
         stage ('Build') {
 		 	steps {
-		 		sh '''
-		 			mvn -X jgitflow:release-finish
-            	'''
+		 		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+			 		sh '''
+			 			mvn -X jgitflow:release-finish
+	            	'''
+            	}
 		    }
         }
     }
