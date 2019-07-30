@@ -30,10 +30,9 @@ pipeline {
 		 		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
 		 			script {
 		 				if("${ACTION_TYPE}" == "release-start"){
-		 					sh ''' mvn -X jgitflow:release-start -DdevelopmentVersion=${DEV_VERSION} '''
+		 					sh ''' mvn -X jgitflow:release-start -DdevelopmentVersion=${DEV_VERSION} jgitflow:release-finish'''
 		 				}else if ("${ACTION_TYPE}" == "release-end") {
-		 					sh ''' 
-		 						mvn -X jgitflow:release-finish
+		 					sh '''
 		 						deleteDir()
 		 					'''
 		 				}
