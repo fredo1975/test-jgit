@@ -30,9 +30,9 @@ pipeline {
 		 		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
 		 			script {
 		 				if("${ACTION_TYPE}" == "release-start"){
-		 					sh ''' release-start '''
+		 					sh ''' echo 'release-start' '''
 		 				}else if ("${ACTION_TYPE}" == "release-end") {
-		 					sh ''' release-end '''
+		 					sh ''' echo 'release-end' '''
 		 				}
 		 			}
             	}
