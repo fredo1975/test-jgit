@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>fr.bluechipit.test-jgit</groupId>
 		<artifactId>test-jgit</artifactId>
-		<version>1.4.0-SNAPSHOT</version>
+		<version>1.3.0</version>
 	</parent>
 	<artifactId>test-jgit-1</artifactId>
 	<name>test-jgit-1</name>
