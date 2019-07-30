@@ -8,9 +8,10 @@ pipeline {
     	VERSION = readMavenPom().getVersion()
     	def pom = readMavenPom file: 'pom.xml'
     	def NVERSION = pom.version.replace("-SNAPSHOT", "")
+    	ACTION_TYPE = "${env.ACTION_TYPE}"
     }
     stages {
-    	stage ('Initialize') {
+        stage ('Initialize') {
             steps {
                 sh '''
                     echo "PATH = ${PATH}"
@@ -18,16 +19,22 @@ pipeline {
                     echo "VERSION = ${VERSION}"
                     echo "pom = ${pom}"
                     echo "NVERSION = ${NVERSION}"
-                    echo "RELEASE_VERSION = ${RELEASE_VERSION}"
+                    echo "DEV_VERSION = ${DEV_VERSION}"
+                    echo "ACTION_TYPE = ${ACTION_TYPE}"
                 '''
             }
         }
+
         stage ('Build') {
 		 	steps {
 		 		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
-			 		sh '''
-			 			mvn -X jgitflow:release-finish
-	            	'''
+		 			script {
+		 				if("${ACTION_TYPE}" == "release-start"){
+		 					sh ''' mvn -X jgitflow:release-start developmentVersion=${DEV_VERSION} '''
+		 				}else if ("${ACTION_TYPE}" == "release-end") {
+		 					sh ''' mvn -X jgitflow:release-finish'''
+		 				}
+		 			}
             	}
 		    }
         }
