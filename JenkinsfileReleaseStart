@@ -29,9 +29,9 @@ pipeline {
 		 	steps {
 		 		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
 		 			script {
-		 				if(${ACTION_TYPE} == "release-start"){
+		 				if("${ACTION_TYPE}" == "release-start"){
 		 					sh ''' release-start '''
-		 				}else if (${ACTION_TYPE} == "release-end") {
+		 				}else if ("${ACTION_TYPE}" == "release-end") {
 		 					sh ''' release-end '''
 		 				}
 		 			}
