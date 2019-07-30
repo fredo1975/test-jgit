@@ -3,7 +3,7 @@
 	<groupId>fr.bluechipit.test-jgit</groupId>
 	<artifactId>test-jgit</artifactId>
 	<packaging>pom</packaging>
-	<version>1.4.0-SNAPSHOT</version>
+	<version>1.5.0-SNAPSHOT</version>
 	<name>test-jgit</name>
 	<url>http://maven.apache.org</url>
 	<modules>
