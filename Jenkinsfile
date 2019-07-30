@@ -30,7 +30,7 @@ pipeline {
 		 		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
 		 			script {
 		 				if("${ACTION_TYPE}" == "release-start"){
-		 					sh ''' mvn -X jgitflow:release-start developmentVersion=${DEV_VERSION} '''
+		 					sh ''' mvn -X jgitflow:release-start -DdevelopmentVersion=${DEV_VERSION} '''
 		 				}else if ("${ACTION_TYPE}" == "release-end") {
 		 					sh ''' mvn -X jgitflow:release-finish'''
 		 				}
