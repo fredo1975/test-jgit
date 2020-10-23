@@ -4,9 +4,6 @@ pipeline {
         maven 'Maven 3.6.0'
         jdk 'jdk8'
     }
-    environment {
-    	def SHORTREV='git rev-parse --short HEAD'
-    }
     stages {
 		  // No checkout stage ? That is not required for this case 
 		  // because Jenkins will checkout whole repo that contains Jenkinsfile, 
@@ -17,6 +14,9 @@ pipeline {
 				    	// For debugging purposes, it is always useful to print info 
 				      // about build environment that is seen by shell during the build
 				      sh 'env'
+				      sh '''
+				        SHORTREV=`git rev-parse --short HEAD`
+				      '''
 				      script {
 				            def pom = readMavenPom file: 'pom.xml'
 				            VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + SHORTREV)
