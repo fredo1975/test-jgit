@@ -16,7 +16,7 @@ pipeline {
 				'''
 				script {
 					def pom = readMavenPom file: 'pom.xml'
-				    VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP)
+				    VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + "\$SHORTREV")
 					}
 		    	}
 			}
@@ -39,17 +39,6 @@ pipeline {
 			      }
 			    }    
 			  }
-			  
-			  stage('Integration Tests') {
-			    steps {
-			    	withMaven(mavenSettingsConfig: 'MyMavenSettings') {
-			 			script {
-			 				sh ''' mvn -B integration-test'''
-			 			}
-	            	}
-			    }
-			  }
-			
 			  stage('Deploy') {
 			    steps {
 			      // Finally deploy all your jars, containers, 
@@ -61,5 +50,16 @@ pipeline {
 	            	}
 			    }
 			  }
+			  stage('Integration Tests') {
+			    steps {
+			    	withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+			 			script {
+			 				sh ''' mvn -B integration-test'''
+			 			}
+	            	}
+			    }
+			  }
+			
+			  
     	}
 }
