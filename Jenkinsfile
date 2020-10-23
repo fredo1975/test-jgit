@@ -20,6 +20,7 @@ pipeline {
 				script {
 					def pom = readMavenPom file: 'pom.xml'
 				    VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + GIT_COMMIT_SHORT)
+				    'mvn -B org.codehaus.mojo:versions-maven-plugin:2.5:set -DprocessAllModules -DnewVersion=VERSION'
 					}
 					echo VERSION
 				sh '''
