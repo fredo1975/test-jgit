@@ -5,7 +5,7 @@ pipeline {
         jdk 'jdk8'
     }
     environment {
-    	VERSION = readMavenPom().getVersion()
+    	def VERSION = readMavenPom().getVersion()
     	def pom = readMavenPom file: 'pom.xml'
     	def NVERSION = pom.version.replace("-SNAPSHOT", "")
     }
