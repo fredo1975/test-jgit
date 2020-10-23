@@ -3,7 +3,7 @@
 	<groupId>fr.bluechipit.test-jgit</groupId>
 	<artifactId>test-jgit</artifactId>
 	<packaging>pom</packaging>
-	<version>1.7.0</version>
+	<version>1.8.1-SNAPSHOT</version>
 	<name>test-jgit</name>
 	<url>http://maven.apache.org</url>
 	<modules>
@@ -133,12 +133,12 @@
 		<repository>
 			<id>nexus</id>
 			<name>Releases</name>
-			<url>http://192.168.1.105:8081/repository/maven-releases/</url>
+			<url>http://192.168.1.107:8081/repository/maven-releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus</id>
 			<name>Snapshot</name>
-			<url>http://192.168.1.105:8081/repository/maven-snapshots</url>
+			<url>http://192.168.1.107:8081/repository/maven-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 </project>
