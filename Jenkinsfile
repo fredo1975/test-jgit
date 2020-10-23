@@ -40,9 +40,11 @@ pipeline {
 			    // We have seperate stage for tests so 
 			    // they stand out in grouping and visualizations
 			    steps {
-			      sh """
-			        mvn -B test $MAVEN_OPTIONS
-			      """
+			    	withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+			 			script {
+			 				sh ''' mvn -B test $MAVEN_OPTIONS'''
+			 			}
+	            	}
 			    }
 			    // Note that, this requires having test results. 
 			    // But you should anyway never skip tests in branch builds
@@ -55,9 +57,11 @@ pipeline {
 			  
 			  stage('Integration Tests') {
 			    steps {
-			      sh """
-			        mvn -B integration-test $MAVEN_OPTIONS
-			      """
+			    	withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+			 			script {
+			 				sh ''' mvn -B integration-test $MAVEN_OPTIONS'''
+			 			}
+	            	}
 			    }
 			    post {
 			      always {
@@ -70,9 +74,11 @@ pipeline {
 			    steps {
 			      // Finally deploy all your jars, containers, 
 			      // deliverables to their respective repositories
-			      sh """
-			        mvn -B deploy
-			      """
+			      withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+			 			script {
+			 				sh ''' mvn -B deploy'''
+			 			}
+	            	}
 			    }
 			  }
     	}
