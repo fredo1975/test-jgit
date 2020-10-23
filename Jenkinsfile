@@ -26,7 +26,7 @@ pipeline {
 			          mvn -B org.codehaus.mojo:versions-maven-plugin:2.5:set -DprocessAllModules -DnewVersion=${VERSION}
 			      """
 			      sh """
-			        mvn -B clean compile ${MAVEN_OPTIONS}
+			        mvn -B clean compile $MAVEN_OPTIONS
 			      """
 		    	}
 			}
@@ -37,7 +37,9 @@ pipeline {
 			    steps {
 			    	withMaven(mavenSettingsConfig: 'MyMavenSettings') {
 			 			script {
-			 				sh """ mvn -B test ${MAVEN_OPTIONS}"""
+			 				sh """ 
+			 				mvn -B test $MAVEN_OPTIONS
+			 				"""
 			 			}
 	            	}
 			    }
@@ -55,7 +57,9 @@ pipeline {
 			      // deliverables to their respective repositories
 			      withMaven(mavenSettingsConfig: 'MyMavenSettings') {
 			 			script {
-			 				sh """ mvn -B deploy ${MAVEN_OPTIONS}"""
+			 				sh """ 
+			 				mvn -B deploy $MAVEN_OPTIONS
+			 				"""
 			 			}
 	            	}
 			    }
@@ -64,7 +68,9 @@ pipeline {
 			    steps {
 			    	withMaven(mavenSettingsConfig: 'MyMavenSettings') {
 			 			script {
-			 				sh """ mvn -B integration-test ${MAVEN_OPTIONS}"""
+			 				sh """ 
+			 				mvn -B integration-test $MAVEN_OPTIONS
+			 				"""
 			 			}
 	            	}
 			    }
