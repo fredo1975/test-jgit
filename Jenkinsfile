@@ -4,6 +4,11 @@ pipeline {
         maven 'Maven 3.6.0'
         jdk 'jdk8'
     }
+    environment {
+    	sh '''
+			def SHORTREV=`git rev-parse --short HEAD`
+		'''
+    }
     stages {
 		  // No checkout stage ? That is not required for this case 
 		  // because Jenkins will checkout whole repo that contains Jenkinsfile, 
