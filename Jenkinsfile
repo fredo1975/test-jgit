@@ -34,6 +34,46 @@ pipeline {
 				      """
 				    }
 		    	}
-		}
-    }
+			}
+			
+			stage('Unit Tests') {
+			    // We have seperate stage for tests so 
+			    // they stand out in grouping and visualizations
+			    steps {
+			      sh """
+			        mvn -B test $MAVEN_OPTIONS
+			      """
+			    }
+			    // Note that, this requires having test results. 
+			    // But you should anyway never skip tests in branch builds
+			    post {
+			      always {
+			        junit '**/target/surefire-reports/*.xml'
+			      }
+			    }    
+			  }
+			  
+			  stage('Integration Tests') {
+			    steps {
+			      sh """
+			        mvn -B integration-test $MAVEN_OPTIONS
+			      """
+			    }
+			    post {
+			      always {
+			        junit '**/target/failsafe-reports/*.xml'
+			      }
+			    }    
+			  }
+			
+			  stage('Deploy') {
+			    steps {
+			      // Finally deploy all your jars, containers, 
+			      // deliverables to their respective repositories
+			      sh """
+			        mvn -B deploy
+			      """
+			    }
+			  }
+    	}
 }
