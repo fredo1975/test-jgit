@@ -25,7 +25,7 @@ pipeline {
 				            // Now you have access to raw version string in pom.version
 				            // Based on your versioning scheme, automatically calculate the next one        
 				            echo "pom.version = ${pom.version}"
-				            SHORTREV = git rev-parse --short HEAD
+				            sh 'SHORTREV = git rev-parse --short HEAD'
 				            echo "SHORTREV = ${SHORTREV}"
 				            VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + SHORTREV)
 				            echo "VERSION = ${VERSION}"
