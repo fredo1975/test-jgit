@@ -1,4 +1,4 @@
-package fr.bluechipt.jgit;
+package fr.bluechipit.jgit;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
