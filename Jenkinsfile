@@ -8,7 +8,6 @@ pipeline {
     	VERSION = readMavenPom().getVersion()
     	def pom = readMavenPom file: 'pom.xml'
     	def NVERSION = pom.version.replace("-SNAPSHOT", "")
-    	ACTION_TYPE = "${env.ACTION_TYPE}"
     }
     stages {
         stage ('Initialize') {
@@ -20,7 +19,6 @@ pipeline {
                     echo "pom = ${pom}"
                     echo "NVERSION = ${NVERSION}"
                     echo "DEV_VERSION = ${DEV_VERSION}"
-                    echo "ACTION_TYPE = ${ACTION_TYPE}"
                 '''
             }
         }
@@ -29,7 +27,11 @@ pipeline {
 		 	steps {
 		 		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
 		 			script {
-		 				sh ''' mvn -X -U jgitflow:release-start -DdevelopmentVersion=${DEV_VERSION} jgitflow:release-finish'''
+		 				// Now you have access to raw version string in pom.version
+            			// Based on your versioning scheme, automatically calculate the next one            
+            			VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + SHORTREV)
+            			echo "VERSION = ${VERSION}"
+		 				//sh ''' mvn -X -U jgitflow:release-start -DdevelopmentVersion=${DEV_VERSION} jgitflow:release-finish'''
 		 			}
             	}
 		    }
