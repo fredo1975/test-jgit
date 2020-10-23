@@ -30,11 +30,12 @@ pipeline {
 				            def pom = readMavenPom file: 'pom.xml'
 				            sh '''
 			                    SHORTREV=`git rev-parse --short HEAD`
+			                    VERSION = `pom.version.replaceAll("SNAPSHOT", BUILD_TIMESTAMP + "." + SHORTREV)`
 			                '''
 				            // Now you have access to raw version string in pom.version
 				            // Based on your versioning scheme, automatically calculate the next one        
 				            echo "pom.version = ${pom.version}"
-				            VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + SHORTREV)
+				            
 				            echo "VERSION = ${VERSION}"
 				      }      
 				      // We never build a SNAPSHOT
