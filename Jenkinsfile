@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         GIT_COMMIT_SHORT = sh(
-                script: "printf \$(git rev-parse --short ${GIT_COMMIT})",
+                script: "printf \$(git rev-parse --short HEAD)",
                 returnStdout: true
         )
     }
@@ -17,13 +17,11 @@ pipeline {
 		  stage ('Build') {
 		  	steps {
 		    	sh 'env'
-				sh '''
-					SHORTREV=`git rev-parse --short HEAD`
-				'''
 				script {
 					def pom = readMavenPom file: 'pom.xml'
-				    def VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + GIT_COMMIT_SHORT)
+				    VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + GIT_COMMIT_SHORT)
 					}
+					echo VERSION
 				sh '''
 			          mvn -B org.codehaus.mojo:versions-maven-plugin:2.5:set -DprocessAllModules -DnewVersion=${VERSION}
 			      '''
