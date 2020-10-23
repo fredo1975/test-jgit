@@ -13,7 +13,7 @@ pipeline {
     	stage ('Initialize') {
             steps {
                 sh '''
-                    def SHORTREV=`git rev-parse --short HEAD`
+                    SHORTREV=`git rev-parse --short HEAD`
                 '''
             }
         }
@@ -27,7 +27,10 @@ pipeline {
 				      // about build environment that is seen by shell during the build
 				      sh 'env'
 				      script {
-				            def pom = readMavenPom file: 'pom.xml'            
+				            def pom = readMavenPom file: 'pom.xml'
+				            sh '''
+			                    SHORTREV=`git rev-parse --short HEAD`
+			                '''
 				            // Now you have access to raw version string in pom.version
 				            // Based on your versioning scheme, automatically calculate the next one        
 				            echo "pom.version = ${pom.version}"
