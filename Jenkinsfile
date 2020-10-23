@@ -9,9 +9,16 @@ pipeline {
                 script: "printf \$(git rev-parse --short HEAD)",
                 returnStdout: true
         )
-        def MAVEN_OPTIONS=''
+        MAVEN_OPTIONS='-X'
     }
     stages {
+    	stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "MAVEN_OPTIONS = ${MAVEN_OPTIONS}"
+                '''
+            }
+        }
 		  // No checkout stage ? That is not required for this case 
 		  // because Jenkins will checkout whole repo that contains Jenkinsfile, 
 		  // which is also the tip of the branch that we want to build
