@@ -13,7 +13,7 @@ pipeline {
     	stage ('Initialize') {
             steps {
                 sh '''
-                    SHORTREV=`git rev-parse --short HEAD`
+                    def SHORTREV=`git rev-parse --short HEAD`
                 '''
             }
         }
