@@ -16,7 +16,7 @@
 		<developerConnection>scm:git:https://fredo1975:github1975@github.com/fredo1975/test-jgit.git</developerConnection>
 	</scm>
 	<properties>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<junit.jupiter.version>5.1.0</junit.jupiter.version>
 		<junit.vintage.version>5.1.0</junit.vintage.version>
 		<junit.platform.version>1.1.0</junit.platform.version>
@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.2.1</version>
+			<version>3.2.2</version>
 		</dependency>
 
 		<dependency>
