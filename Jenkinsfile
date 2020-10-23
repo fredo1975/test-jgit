@@ -27,7 +27,7 @@ pipeline {
 			    steps {
 			    	withMaven(mavenSettingsConfig: 'MyMavenSettings') {
 			 			script {
-			 				sh ''' mvn -B tes'''
+			 				sh ''' mvn -B test'''
 			 			}
 	            	}
 			    }
