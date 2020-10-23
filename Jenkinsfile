@@ -9,7 +9,7 @@ pipeline {
                 script: "printf \$(git rev-parse --short HEAD)",
                 returnStdout: true
         )
-        MAVEN_OPTIONS=''
+        def MAVEN_OPTIONS=''
     }
     stages {
 		  // No checkout stage ? That is not required for this case 
