@@ -4,19 +4,10 @@ pipeline {
         maven 'Maven 3.6.0'
         jdk 'jdk8'
     }
-    /*environment {
-    	def VERSION = readMavenPom().getVersion()
-    	def pom = readMavenPom file: 'pom.xml'
-    	def NVERSION = pom.version.replace("-SNAPSHOT", "")
-    }*/
+    environment {
+    	def SHORTREV='git rev-parse --short HEAD'
+    }
     stages {
-    	stage ('Initialize') {
-            steps {
-                sh '''
-                    SHORTREV=`git rev-parse --short HEAD`
-                '''
-            }
-        }
 		  // No checkout stage ? That is not required for this case 
 		  // because Jenkins will checkout whole repo that contains Jenkinsfile, 
 		  // which is also the tip of the branch that we want to build
@@ -28,14 +19,9 @@ pipeline {
 				      sh 'env'
 				      script {
 				            def pom = readMavenPom file: 'pom.xml'
-				            sh '''
-			                    SHORTREV=`git rev-parse --short HEAD`
-			                    VERSION = `pom.version.replaceAll(\'SNAPSHOT\', BUILD_TIMESTAMP + "." + SHORTREV)`
-			                '''
+				            VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + SHORTREV)
 				            // Now you have access to raw version string in pom.version
-				            // Based on your versioning scheme, automatically calculate the next one        
-				            echo "pom.version = ${pom.version}"
-				            
+				            // Based on your versioning scheme, automatically calculate the next one
 				            echo "VERSION = ${VERSION}"
 				      }      
 				      // We never build a SNAPSHOT
