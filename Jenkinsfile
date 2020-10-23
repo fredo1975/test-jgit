@@ -10,18 +10,6 @@ pipeline {
     	def NVERSION = pom.version.replace("-SNAPSHOT", "")
     }
     stages {
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                    echo "VERSION = ${VERSION}"
-                    echo "pom = ${pom}"
-                    echo "NVERSION = ${NVERSION}"
-                '''
-            }
-        }
-
         stage ('Build') {
 		 	steps {
 		 		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
