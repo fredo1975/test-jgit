@@ -5,9 +5,10 @@ pipeline {
         jdk 'jdk8'
     }
     environment {
-    	sh '''
-			def SHORTREV=`git rev-parse --short HEAD`
-		'''
+        GIT_COMMIT_SHORT = sh(
+                script: "printf \$(git rev-parse --short ${GIT_COMMIT})",
+                returnStdout: true
+        )
     }
     stages {
 		  // No checkout stage ? That is not required for this case 
@@ -21,7 +22,7 @@ pipeline {
 				'''
 				script {
 					def pom = readMavenPom file: 'pom.xml'
-				    VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + $SHORTREV)
+				    VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + SHORTREV)
 					}
 		    	}
 			}
