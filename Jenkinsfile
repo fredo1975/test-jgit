@@ -13,7 +13,6 @@ pipeline {
 		  // No checkout stage ? That is not required for this case 
 		  // because Jenkins will checkout whole repo that contains Jenkinsfile, 
 		  // which is also the tip of the branch that we want to build
-		
 		  stage ('Build') {
 		    steps {
 		    	withMaven(mavenSettingsConfig: 'MyMavenSettings') {
@@ -26,8 +25,9 @@ pipeline {
 				      script {
 				            def pom = readMavenPom file: 'pom.xml'            
 				            // Now you have access to raw version string in pom.version
-				            // Based on your versioning scheme, automatically calculate the next one            
-				            VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + SHORTREV)
+				            // Based on your versioning scheme, automatically calculate the next one        
+				            echo "pom.version = ${pom.version}"
+				            //VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + SHORTREV)
 				      }      
 				      // We never build a SNAPSHOT
 				      // We explicitly set versions.
