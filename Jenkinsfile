@@ -9,16 +9,15 @@ pipeline {
 		  // because Jenkins will checkout whole repo that contains Jenkinsfile, 
 		  // which is also the tip of the branch that we want to build
 		  stage ('Build') {
-		    steps {
+		  	steps {
 		    	sh 'env'
-				      sh '''
-				      	SHORTREV=`git rev-parse --short HEAD`
-					  '''
-				      script {
-				            def pom = readMavenPom file: 'pom.xml'
-				            VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + SHORTREV)
-				            
-				      }
+				sh '''
+					SHORTREV=`git rev-parse --short HEAD`
+				'''
+				script {
+					def pom = readMavenPom file: 'pom.xml'
+				    VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP)
+					}
 		    	}
 			}
 			
