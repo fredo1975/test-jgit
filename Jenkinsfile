@@ -10,32 +10,15 @@ pipeline {
 		  // which is also the tip of the branch that we want to build
 		  stage ('Build') {
 		    steps {
-		    	withMaven(mavenSettingsConfig: 'MyMavenSettings') {
-				    	// For debugging purposes, it is always useful to print info 
-				      // about build environment that is seen by shell during the build
-				      sh 'env'
+		    	sh 'env'
 				      sh '''
 				      	SHORTREV=`git rev-parse --short HEAD`
 					  '''
 				      script {
 				            def pom = readMavenPom file: 'pom.xml'
 				            VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + SHORTREV)
-				            // Now you have access to raw version string in pom.version
-				            // Based on your versioning scheme, automatically calculate the next one
-				            /*
-				            echo "VERSION = ${VERSION}"
-				            withMaven(mavenSettingsConfig: 'MyMavenSettings') {
-					            // We never build a SNAPSHOT
-							      // We explicitly set versions.
-							      sh """
-							          mvn -B org.codehaus.mojo:versions-maven-plugin:2.5:set -DprocessAllModules -DnewVersion=${VERSION}
-							      """
-							      sh """
-							        mvn -B clean compile
-							      """
-				            }*/
+				            
 				      }
-				    }
 		    	}
 			}
 			
