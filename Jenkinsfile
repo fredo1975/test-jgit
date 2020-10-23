@@ -23,15 +23,17 @@ pipeline {
 				            // Now you have access to raw version string in pom.version
 				            // Based on your versioning scheme, automatically calculate the next one
 				            echo "VERSION = ${VERSION}"
-				      }      
-				      // We never build a SNAPSHOT
-				      // We explicitly set versions.
-				      sh """
-				          mvn -B org.codehaus.mojo:versions-maven-plugin:2.5:set -DprocessAllModules -DnewVersion=${VERSION}  $MAVEN_OPTIONS
-				      """
-				      sh """
-				        mvn -B clean compile $MAVEN_OPTIONS
-				      """
+				            withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+					            // We never build a SNAPSHOT
+							      // We explicitly set versions.
+							      sh """
+							          mvn -B org.codehaus.mojo:versions-maven-plugin:2.5:set -DprocessAllModules -DnewVersion=${VERSION}  $MAVEN_OPTIONS
+							      """
+							      sh """
+							        mvn -B clean compile $MAVEN_OPTIONS
+							      """
+				            }
+				      }
 				    }
 		    	}
 			}
