@@ -19,14 +19,14 @@ pipeline {
 				    	// For debugging purposes, it is always useful to print info 
 				      // about build environment that is seen by shell during the build
 				      sh 'env'      
-				      sh """
-				        SHORTREV=`git rev-parse --short HEAD`
-				      """
+				      
 				      script {
 				            def pom = readMavenPom file: 'pom.xml'            
 				            // Now you have access to raw version string in pom.version
 				            // Based on your versioning scheme, automatically calculate the next one        
 				            echo "pom.version = ${pom.version}"
+				            SHORTREV = git rev-parse --short HEAD
+				            echo "SHORTREV = ${SHORTREV}"
 				            VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + SHORTREV)
 				            echo "VERSION = ${VERSION}"
 				      }      
