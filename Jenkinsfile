@@ -16,7 +16,7 @@ pipeline {
 				'''
 				script {
 					def pom = readMavenPom file: 'pom.xml'
-				    VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + "$SHORTREV")
+				    VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + $SHORTREV)
 					}
 		    	}
 			}
