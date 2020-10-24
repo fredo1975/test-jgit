@@ -27,15 +27,15 @@ pipeline {
 		    	sh 'env'
 				script {
 					def pom = readMavenPom file: 'pom.xml'
-				    VERSION = pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + GIT_COMMIT_SHORT)
-					}
-					echo VERSION
-				  sh """
-			          mvn -B org.codehaus.mojo:versions-maven-plugin:2.5:set -DprocessAllModules -DnewVersion=${VERSION}
-			      """
-			      sh """
+					VERSION = sh(script: "pom.version.replaceAll('SNAPSHOT', BUILD_TIMESTAMP + "." + GIT_COMMIT_SHORT),returnStdout: true").trim()
+				}
+				echo VERSION
+				sh """
+			    	mvn -B org.codehaus.mojo:versions-maven-plugin:2.5:set -DprocessAllModules -DnewVersion=${VERSION}
+			    """
+			    sh """
 			        mvn -B clean compile ${MAVEN_OPTIONS}
-			      """
+			    """
 		    	}
 			}
 			stage('Unit Tests') {
@@ -45,7 +45,7 @@ pipeline {
 			    	withMaven(mavenSettingsConfig: 'MyMavenSettings') {
 			 			script {
 			 				sh """ 
-			 				mvn -B test $MAVEN_OPTIONS
+			 					mvn -B test $MAVEN_OPTIONS
 			 				"""
 			 			}
 	            	}
